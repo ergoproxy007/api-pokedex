@@ -1,19 +1,32 @@
 package com.dtorres.api.pokedex.query.domain.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
+import java.util.List;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class PokemonGeneral {
 
     private Long id;
     private String name;
     private Integer weight;
+    private String type;
+    private String image;
+    private List<PokemonAbility> abilities;
+
+    public static PokemonGeneral create(Long id, String name, Integer weight, List<String> types) {
+        return PokemonGeneral.builder()
+                .id(id)
+                .name(name)
+                .weight(weight)
+                .type(String.join(",",types))
+                .build();
+    }
 }

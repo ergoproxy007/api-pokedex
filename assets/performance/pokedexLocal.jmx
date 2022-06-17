@@ -54,7 +54,7 @@
             <stringProp name="HTTPSampler.port">${port_number}</stringProp>
             <stringProp name="HTTPSampler.protocol">${protocol}</stringProp>
             <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
-            <stringProp name="HTTPSampler.path">api/pokemons/ditto</stringProp>
+            <stringProp name="HTTPSampler.path">api/pokemons/pikachu</stringProp>
             <stringProp name="HTTPSampler.method">GET</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
