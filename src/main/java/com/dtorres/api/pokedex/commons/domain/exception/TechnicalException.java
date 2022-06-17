@@ -1,10 +1,10 @@
 package com.dtorres.api.pokedex.commons.domain.exception;
 
-public class ErrorTecnicoException extends DominioException {
+public class TechnicalException extends DomainException {
 
     private static final long serialVersionUID = 1L;
 
-    public ErrorTecnicoException(String message) {
+    public TechnicalException(String message) {
         super(message);
     }
 }
