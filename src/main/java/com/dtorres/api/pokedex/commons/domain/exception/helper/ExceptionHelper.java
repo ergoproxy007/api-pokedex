@@ -1,4 +1,4 @@
-package com.dtorres.api.pokedex.query.infrastructure.exception.helper;
+package com.dtorres.api.pokedex.commons.domain.exception.helper;
 
 import com.dtorres.api.pokedex.commons.domain.exception.DomainException;
 import com.dtorres.api.pokedex.commons.domain.exception.TechnicalException;
@@ -7,7 +7,7 @@ import com.dtorres.api.pokedex.commons.log.LogErrorManager;
 
 import java.util.List;
 
-public class QueryExceptionHelper extends ThrowExceptionHelper {
+public class ExceptionHelper extends ThrowExceptionHelper {
 
     private static final String DEFAULT_MESSAGE = "Not enough information";
 

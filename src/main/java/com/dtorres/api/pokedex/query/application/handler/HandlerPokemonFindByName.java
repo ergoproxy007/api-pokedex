@@ -1,6 +1,7 @@
 package com.dtorres.api.pokedex.query.application.handler;
 
-import static com.dtorres.api.pokedex.query.infrastructure.exception.helper.QueryExceptionHelper.throwObject;
+import static com.dtorres.api.pokedex.commons.constants.QueryConstants.GET_ABILITY;
+import static com.dtorres.api.pokedex.commons.domain.exception.helper.ExceptionHelper.throwObject;
 
 import com.dtorres.api.pokedex.commons.response.ResponseDTO;
 import com.dtorres.api.pokedex.query.domain.dao.DaoGetPokemonByName;
@@ -8,6 +9,8 @@ import com.dtorres.api.pokedex.query.domain.model.PokemonGeneral;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.CompletionStage;
 
 @Component
@@ -20,12 +23,18 @@ public class HandlerPokemonFindByName {
         this.daoGetPokemonByName = daoGetPokemonByName;
     }
 
-    public ResponseDTO execute(String name) {
-        CompletionStage<PokemonGeneral> promise = daoGetPokemonByName.findByName(name);
+    public ResponseDTO execute(String name, String queryAbility) {
+        CompletionStage<PokemonGeneral> promiseByName = daoGetPokemonByName.findByName(name, getQueryParams(queryAbility));
         ResponseDTO response = new ResponseDTO();
-        response.setData(promise.exceptionally(throwable -> throwObject(throwable))
+        response.setData(promiseByName.exceptionally(throwable -> throwObject(throwable))
                                 .toCompletableFuture().join());
         response.success();
         return response;
+    }
+
+    private Map<String, String> getQueryParams(String queryAbility) {
+        Map<String, String> queryParams = new HashMap<>();
+        queryParams.put(GET_ABILITY, queryAbility);
+        return queryParams;
     }
 }
