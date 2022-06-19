@@ -21,12 +21,14 @@ public class PokemonGeneral {
     private String image;
     private List<PokemonAbility> abilities;
 
-    public static PokemonGeneral create(Long id, String name, Integer weight, List<String> types) {
+    public static PokemonGeneral create(Long id, String name, Integer weight, String image, List<String> types, List<PokemonAbility> abilities) {
         return PokemonGeneral.builder()
                 .id(id)
                 .name(name)
                 .weight(weight)
+                .image(image)
                 .type(String.join(",",types))
+                .abilities(abilities)
                 .build();
     }
 }
