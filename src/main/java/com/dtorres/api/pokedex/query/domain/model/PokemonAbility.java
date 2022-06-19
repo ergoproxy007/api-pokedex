@@ -18,5 +18,5 @@ import java.io.Serializable;
 public class PokemonAbility implements Serializable {
 
     private String name;
-    private String url;
+    private String description;
 }

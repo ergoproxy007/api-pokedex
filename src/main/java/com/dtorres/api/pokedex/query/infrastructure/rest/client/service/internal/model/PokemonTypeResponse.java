@@ -1,5 +1,6 @@
-package com.dtorres.api.pokedex.query.infrastructure.rest.model;
+package com.dtorres.api.pokedex.query.infrastructure.rest.client.service.internal.model;
 
+import com.dtorres.api.pokedex.query.infrastructure.rest.props.NameProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,8 +14,6 @@ public class PokemonTypeResponse {
     private Type type;
 
     @Data
-    public static class Type {
-        private String name;
-        private String url;
+    public static class Type extends NameProperty {
     }
 }

@@ -1,4 +1,4 @@
-package com.dtorres.api.pokedex.query.infrastructure.rest.model;
+package com.dtorres.api.pokedex.query.infrastructure.rest.client.service.internal.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,5 +13,7 @@ public class PokemonResponse {
     private Long id;
     private String name;
     private Integer weight;
+    private List<PokemonAbilityResponse> abilities;
     private List<PokemonTypeResponse> types;
+    private PokemonSpritesResponse sprites;
 }
