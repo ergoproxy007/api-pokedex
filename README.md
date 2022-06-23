@@ -137,3 +137,7 @@ pensando a futuro poder agregar assets de validación o baterias de pruebas de r
 ![Screenshot]
 
 ## Learn More
+Commands:
+mvn clean test
+mvn jacoco:report
+Path: path_project/target/site/jacoco/index.html
