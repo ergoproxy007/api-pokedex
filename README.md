@@ -97,7 +97,7 @@ Se realiza creación, configuración y despliegue de la aplicación en GCP, con 
 ###### Comandos
 - gcloud init
 - gcloud app deploy
-![Screenshot](https://github.com/ergoproxy007/api-pokedex/blob/main/assets/documentation/console_gcp.PNG?raw=true)
+![Screenshot](https://github.com/ergoproxy007/api-pokedex/blob/main/assets/documentation/console_gcp.png?raw=true)
 
 ## Manual de usuario
 ###### Como ejecutar este programa
