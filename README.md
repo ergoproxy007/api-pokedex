@@ -51,18 +51,26 @@ Para ver mas detalle sobre los Json de entrada y ejemplo puede revisar la secci�
 ###### Características de la aplicación
 ### Librerias y/o Dependencias más importantes:
 
-   Dependency Name | Usage         | Version | License      |
-   -------------   | ------------- | ------- | -------------
-   Java            | Java Library  | 8       | OpenJDK Open Source |
-   Spring Boot     | Web and DI Java framework     | 2.5.3  | Apache License 2.0 |
-   Spring Data     | Starter for using Spring Data JPA with Hibernate  | 2.5.3 | Apache License 2.0 |
-   H2              | in-memory database, embedded  | 1.4    | Eclipse Public License |
-   Trilateration   | Solves a formulation of n-D space trilateration problem | 1.0.2 | MIT License |
-   JUnit           | Unit Testing Library    | 5.jupiter    | Eclipse Public License |
-   Mockito         | Test                    |              | MIT license |
-   JaCoCo          | Java code coverage tools | 0.8.7       | GPL v2      |
+   Dependency Name | Usage                                            | Version   | License                |
+   -------------   |--------------------------------------------------|-----------|------------------------
+   Java            | Java Library                                     | 11        | OpenJDK Open Source    |
+   Spring Boot     | Web and DI Java framework                        | 2.4.3     | Apache License 2.0     |
+   Spring Data     | Starter for using Spring Data JPA with Hibernate | 2.5.3     | Apache License 2.0     |
+   H2              | in-memory database, embedded                     | 1.4       | Eclipse Public License |
+   Lombok          | annotation processor to automate code generation | 1.18.18  | MIT License           |
+   JUnit           | Unit Testing Library                             | 5.jupiter | Eclipse Public License |
+   Mockito         | Test                                             |           | MIT license            |
+   JaCoCo          | Java code coverage tools                         | 0.8.7     | GPL v2                 |
 ######
 #### URL Paths
+El recurso o Json de respuesta se maneja con el siguiente formato:
+```json
+{
+  "success": " valida si la respuesta fue exitosa o no, retornando true o false "
+  "code": " códido de estado Http, ejemplo "200" o "404" ",
+  "data": " aquí es donde se encapsula el Json de respuesta o contenido de la petición que luego sera leido y operado con un cliente/dispositivo"
+}
+```
 En este momento cuenta con 2 servicios rest tipo Get con las siguientes firmas:
 <pre><code>GET api/pokemons/{name}</code></pre>
 ###### - retorna la información del pokemon con los datos básicos, ejemplo de una respuesta del recurso:
@@ -80,9 +88,8 @@ Se realiza creación, configuración y despliegue de la aplicación en GCP, con 
 - Nube: privada
 - Zona: southamerica-east1
 - Host: https://api-pokedex-354204.rj.r.appspot.com
-###### diagrama
-![Screenshot]
-![Screenshot]
+###### Diagrama Infra
+![Screenshot](https://raw.githubusercontent.com/ergoproxy007/api-pokedex/main/assets/documentation/gcp_diagram.PNG?token=GHSAT0AAAAAABVSZQMAAQOZZJR6LPXKW6QMYVUCVYA)
 
 ## Manual de usuario
 ###### Como ejecutar este programa
@@ -101,21 +108,16 @@ En ambiente local, tienen dos opciones para ejecutar y/o probar el programa:
 ######
 1.4.  Consumo en ambiente local:
 ######
-1.4.1  curl 1:
-<pre><code>curl -X POST "http://localhost:8080/api/" -H "accept: application/json" -H  "Content-Type: application/json" -d '{"satellites":[{"name":"kenobi","distance":100.0,"message":["este","","","mensaje",""]},{"name":"skywalker","distance":115.5,"message":["","es","","","secreto"]},{"name":"sato","distance":142.7,"message":["este","","un","",""]}]}'</code></pre>
-1.4.2.  curl 1:
-<pre><code>curl -X POST "http://localhost:8080/api/" -H "accept: application/json" -H  "Content-Type: application/json" -d '{"distance": 142.7,"message": ["este", "", "un", "", "mensaje"]}'</code></pre>
-1.4.3.  curl 1:
-<pre><code>curl -X GET "http://localhost:8080/api/" -H  "accept: application/json" -H "Content-Type: application/json"</code></pre>
+1.4.1  curl api/pokemons/{name} =>
+<pre><code>curl -X GET "http://localhost:8080/api/pokemons/pikachu" -H  "accept: application/json" -H "Content-Type: application/json"</code></pre>
+######
+1.4.2  curl api/pokemons/{name}?queryAbility={queryParam} =>
+<pre><code>curl -X GET "http://localhost:8080/api/pokemons/pikachu?queryAbility=N" -H  "accept: application/json" -H "Content-Type: application/json"</code></pre>
 ######
 1.5  Consumo en ambiente productivo:
-1.5.1  curl 1:
-<pre><code>curl -X POST "https://" -H "accept: application/json" -H  "Content-Type: application/json" -d '{"satellites":[{"name":"kenobi","distance":100.0,"message":["este","","","mensaje",""]},{"name":"skywalker","distance":115.5,"message":["","es","","","secreto"]},{"name":"sato","distance":142.7,"message":["este","","un","",""]}]}'</code></pre>
-1.5.1.  curl 1:
-<pre><code>curl -X POST "https://" -H "accept: application/json" -H  "Content-Type: application/json" -d '{"distance": 142.7,"message": ["este", "", "un", "", "mensaje"]}'</code></pre>
-1.5.2.  curl 1:
-<pre><code>curl -X GET "https://" -H  "accept: application/json" -H "Content-Type: application/json"</code></pre>
-###### 1.3.3.  Respuesta ejemplo:
+1.5.1  curl https://api-pokedex-354204.rj.r.appspot.com/api/pokemons/{name} =>
+<pre><code>curl -X GET "https://api-pokedex-354204.rj.r.appspot.com/api/pokemons/psyduck" -H  "accept: application/json" -H "Content-Type: application/json"</code></pre>
+###### Respuesta ejemplo:
 ![Screenshot]
 
 ### 2. A través de los archivos de Jmeter
@@ -126,6 +128,9 @@ pensando a futuro poder agregar assets de validación o baterias de pruebas de r
 2.1 Descarga Jmeter [aquí](https://jmeter.apache.org/download_jmeter.cgi)
 ######
 2.2 Abrir el archivo en la ruta api-pokedex/assets/performance
+######
+- Archivo pokedexPDN.jmx para ambiente GCP
+- Archivo pokedexLocal.jmx para ambiente Local
 ######
 2.3 Ejecutar los servicios como disponga (en View Results Tree podrá ver los resultados):
 ###### imagen
