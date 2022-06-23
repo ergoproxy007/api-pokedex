@@ -8,6 +8,7 @@ import com.dtorres.api.pokedex.query.infrastructure.rest.client.operations.RestT
 import com.dtorres.api.pokedex.query.infrastructure.rest.client.service.internal.model.PokemonAbilityDetailsResponse;
 import com.dtorres.api.pokedex.query.infrastructure.rest.client.service.internal.model.PokemonAbilityResponse;
 import com.dtorres.api.pokedex.query.infrastructure.rest.client.service.internal.model.PokemonResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -34,7 +35,7 @@ public class RestClientPokedexService {
 
     public PokemonResponse findByName(String name, Map<String, String> queryParams) {
         String finalUrl = pokeapiUrl.concat(name);
-        ResponseEntity<PokemonResponse> result = (ResponseEntity<PokemonResponse>) restTemplateOperations.getResponseEntity(finalUrl, PokemonResponse.class);
+        ResponseEntity<PokemonResponse> result = restTemplateOperations.getPokemonResponse(finalUrl);
         if (result == null || result.getStatusCode() != HttpStatus.OK) {
             throw new NotFoundDataException(EMPTY_RESPONSE);
         }
@@ -43,19 +44,24 @@ public class RestClientPokedexService {
         return pokemon;
     }
 
+    public PokemonAbilityDetailsResponse getPokemonAbilityDetails(PokemonAbilityResponse.Ability ability) {
+        ResponseEntity<PokemonAbilityDetailsResponse> result = restTemplateOperations.getPokemonAbilityDetailsResponse(ability.getUrl());
+        if (result == null || result.getStatusCode() != HttpStatus.OK) {
+            throw new NotFoundDataException(EMPTY_RESPONSE);
+        }
+        return result.getBody();
+    }
+
     private void setDescriptionAbility(List<PokemonAbilityResponse> abilities, String withAbility) {
         if (YES.equalsIgnoreCase(withAbility)) {
-            abilities.parallelStream().forEach(value -> {
-                ResponseEntity<PokemonAbilityDetailsResponse> result = (ResponseEntity<PokemonAbilityDetailsResponse>) restTemplateOperations.getResponseEntityByNameProperty(value.getAbility(), PokemonAbilityDetailsResponse.class);
-                if (result.getStatusCode() == HttpStatus.OK) {
-                    PokemonAbilityDetailsResponse details = result.getBody();
+            abilities.parallelStream().forEach(ability -> {
+                PokemonAbilityDetailsResponse pokemonAbilityDetails = getPokemonAbilityDetails(ability.getAbility());
 
-                    PokemonAbilityDetailsResponse.Effect effect = details.getEffectDetails().stream()
-                                                                  .filter(PokemonAbilityDetailsResponse.Effect::returnOnlyInEnglish)
-                                                                  .findFirst().orElse(new PokemonAbilityDetailsResponse.Effect());
+                PokemonAbilityDetailsResponse.Effect effect = pokemonAbilityDetails.getEffectDetails().stream()
+                        .filter(PokemonAbilityDetailsResponse.Effect::returnOnlyInEnglish)
+                        .findFirst().orElse(new PokemonAbilityDetailsResponse.Effect());
 
-                    value.setDescription(effect.getEffect());
-                }
+                ability.setDescription(effect.getEffect());
             });
         }
     }

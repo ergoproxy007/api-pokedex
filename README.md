@@ -44,7 +44,10 @@ La aplicación es una RESTful API basada en arquitectura de Micro Servicios, des
 Para ver mas detalle sobre los Json de entrada y ejemplo puede revisar la sección de **Manual de usuario y Learn More.**
 
 #### Diagrama de Componentes
-![Screenshot]
+![Screenshot](https://github.com/ergoproxy007/api-pokedex/blob/main/assets/documentation/diagrama_componentes.png?raw=true)
+
+#### Diagrama de Clases
+![Screenshot](https://github.com/ergoproxy007/api-pokedex/blob/main/assets/documentation/diagrama_clases.png?raw=true)
 
 ## Caracteristicas
 ---
@@ -88,8 +91,8 @@ Se realiza creación, configuración y despliegue de la aplicación en GCP, con 
 - Nube: privada
 - Zona: southamerica-east1
 - Host: https://api-pokedex-354204.rj.r.appspot.com
-###### Diagrama Infra
-![Screenshot](https://raw.githubusercontent.com/ergoproxy007/api-pokedex/main/assets/documentation/gcp_diagram.PNG?token=GHSAT0AAAAAABVSZQMAAQOZZJR6LPXKW6QMYVUCVYA)
+###### GCP Diagram 
+![Screenshot](https://github.com/ergoproxy007/api-pokedex/blob/main/assets/documentation/gcp_diagram.PNG?raw=true)
 
 ## Manual de usuario
 ###### Como ejecutar este programa
@@ -118,12 +121,11 @@ En ambiente local, tienen dos opciones para ejecutar y/o probar el programa:
 1.5.1  curl https://api-pokedex-354204.rj.r.appspot.com/api/pokemons/{name} =>
 <pre><code>curl -X GET "https://api-pokedex-354204.rj.r.appspot.com/api/pokemons/psyduck" -H  "accept: application/json" -H "Content-Type: application/json"</code></pre>
 ###### Respuesta ejemplo:
-![Screenshot]
+![Screenshot](https://github.com/ergoproxy007/api-pokedex/blob/main/assets/documentation/curl_gcp.png?raw=true)
 
 ### 2. A través de los archivos de Jmeter
 La creación de los archivos en Jmeter tiene como objetivo simplificar el trabajo de ejecución de los servicios rest,
 pensando a futuro poder agregar assets de validación o baterias de pruebas de rendimiento, entre otras cosas, que te brinda un programa como Jmeter.
-[Screenshot]
 
 2.1 Descarga Jmeter [aquí](https://jmeter.apache.org/download_jmeter.cgi)
 ######
@@ -134,7 +136,7 @@ pensando a futuro poder agregar assets de validación o baterias de pruebas de r
 ######
 2.3 Ejecutar los servicios como disponga (en View Results Tree podrá ver los resultados):
 ###### imagen
-![Screenshot]
+![Screenshot](https://github.com/ergoproxy007/api-pokedex/blob/main/assets/documentation/jmeter_gcp.png?raw=true)
 
 ## Learn More
 Commands:

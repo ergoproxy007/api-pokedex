@@ -1,10 +1,13 @@
 package com.dtorres.api.pokedex.query.infrastructure.rest.client.operations;
 
 import com.dtorres.api.pokedex.commons.domain.exception.TechnicalException;
+import com.dtorres.api.pokedex.query.infrastructure.rest.client.service.internal.model.PokemonAbilityDetailsResponse;
+import com.dtorres.api.pokedex.query.infrastructure.rest.client.service.internal.model.PokemonResponse;
 import com.dtorres.api.pokedex.query.infrastructure.rest.props.NameProperty;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpClientErrorException;
@@ -22,7 +25,7 @@ public class RestTemplateOperations {
         this.restTemplate = builder.build();
     }
 
-    public ResponseEntity<?> getResponseEntity(String url, Class<?> classType) {
+    private ResponseEntity<?> getResponseEntity(String url, Class<?> classType) {
         try {
             return restTemplate.getForEntity(url, classType);
         } catch (HttpServerErrorException e) {
@@ -34,7 +37,15 @@ public class RestTemplateOperations {
         }
     }
 
-    public ResponseEntity<?> getResponseEntityByNameProperty(NameProperty nameProperty, Class<?> classType) {
-        return getResponseEntity(nameProperty.getUrl(), classType);
+    @Cacheable("pokemon")
+    public ResponseEntity<PokemonResponse> getPokemonResponse(String url) {
+        log.info("access to pokemon url={}", url);
+        return (ResponseEntity<PokemonResponse>) getResponseEntity(url, PokemonResponse.class);
+    }
+
+    @Cacheable("abilitydetails")
+    public ResponseEntity<PokemonAbilityDetailsResponse> getPokemonAbilityDetailsResponse(String url) {
+        log.info("access to pokemon url={}", url);
+        return (ResponseEntity<PokemonAbilityDetailsResponse>) getResponseEntity(url, PokemonAbilityDetailsResponse.class);
     }
 }

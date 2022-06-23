@@ -50,13 +50,13 @@ public class RestClientPokedexServiceTest extends CommonUnitTest {
         //Arrange
         PokemonResponse squirtle = new TestDataBuilderPokemonResponse().withName("squirtle")
                                         .withWeight(10).withAbility("runner").withType("water").build();
-        doReturn(ResponseEntity.ok(squirtle)).when(restTemplate).getResponseEntity(any(), any());
+        doReturn(ResponseEntity.ok(squirtle)).when(restTemplate).getPokemonResponse(any());
         //Act
         PokemonResponse squirtleResponse = this.restClientPokedexService.findByName("squirtle", getSimpleMap("GA", "N"));
         //Assert
         assertNotNull(squirtleResponse);
         assertEquals("water", squirtleResponse.getTypes().stream().findFirst().get().getType().getName(), "Pokemom type is not valid");
-        verify(restTemplate, times(1)).getResponseEntity(any(), any());
+        verify(restTemplate, times(1)).getPokemonResponse(any());
     }
 
     @Test
@@ -64,14 +64,16 @@ public class RestClientPokedexServiceTest extends CommonUnitTest {
         //Arrange
         PokemonResponse squirtle = new TestDataBuilderPokemonResponse().withName("squirtle")
                 .withWeight(10).withAbility("runner").withType("water").build();
-        doReturn(ResponseEntity.ok(squirtle)).when(restTemplate).getResponseEntity(any(), any());
+        doReturn(ResponseEntity.ok(squirtle)).when(restTemplate).getPokemonResponse(any());
 
         PokemonAbilityDetailsResponse description = new TestDataBuilderPokemonAbilityDetailsResponse().withEffect(DESCRIPTION).build();
-        doReturn(ResponseEntity.ok(description)).when(restTemplate).getResponseEntityByNameProperty(any(), any());
+        doReturn(ResponseEntity.ok(description)).when(restTemplate).getPokemonAbilityDetailsResponse(any());
         //Act
         PokemonResponse squirtleResponse = this.restClientPokedexService.findByName("squirtle", getSimpleMap("GA", "Y"));
         assertNotNull(squirtleResponse);
         assertEquals(DESCRIPTION, squirtleResponse.getAbilities().stream().findFirst().get().getDescription(), "Invalid Descriptipn");
-        verify(restTemplate, times(1)).getResponseEntityByNameProperty(any(), any());
+
+        verify(restTemplate, times(1)).getPokemonResponse(any());
+        verify(restTemplate, times(1)).getPokemonAbilityDetailsResponse(any());
     }
 }
