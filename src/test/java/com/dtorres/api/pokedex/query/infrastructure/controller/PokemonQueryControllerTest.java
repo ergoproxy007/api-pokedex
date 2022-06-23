@@ -17,7 +17,7 @@ import com.dtorres.api.pokedex.query.domain.dao.DaoGetPokemonByName;
 import com.dtorres.api.pokedex.query.infrastructure.repository.PokedexRepository;
 import com.dtorres.api.pokedex.query.infrastructure.rest.client.service.internal.RestClientPokedexService;
 import com.dtorres.api.pokedex.testdatabuilder.TestDataBuilderPokemonResponse;
-import com.dtorres.api.pokedex.base.BaseUnit;
+import com.dtorres.api.pokedex.commons.CommonUnitTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -29,7 +29,7 @@ import org.springframework.http.ResponseEntity;
 
 @ExtendWith(MockitoExtension.class)
 @MockitoSettings(strictness = Strictness.LENIENT)
-public class PokemonQueryControllerTest extends BaseUnit {
+public class PokemonQueryControllerTest extends CommonUnitTest {
 
     private PokemonQueryController controller;
     private HandlerPokemonFindByName handlerPokemonFindByName;
@@ -64,7 +64,7 @@ public class PokemonQueryControllerTest extends BaseUnit {
         assertEquals(OK, result.getStatusCode());
         assertNotNull(getAsPokemonGeneral(result).getType());
         assertTrue(getAsPokemonGeneral(result).getAbilities().stream().findFirst().isPresent());
-        assertEquals("normal", getAsPokemonGeneral(result).getType(),"is pokemon type");
+        assertEquals("normal", getAsPokemonGeneral(result).getType(),"error comparing pokemon type");
         assertNotEquals("invisibility", getAsPokemonGeneral(result).getAbilities().get(0).getName(),"this is not an ability");
         verify(service, times(1)).findByName(any(), any());
     }
