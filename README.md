@@ -94,6 +94,11 @@ Se realiza creación, configuración y despliegue de la aplicación en GCP, con 
 ###### GCP Diagram 
 ![Screenshot](https://github.com/ergoproxy007/api-pokedex/blob/main/assets/documentation/gcp_diagram.PNG?raw=true)
 
+###### Comandos
+- gcloud init
+- gcloud app deploy
+![Screenshot](https://github.com/ergoproxy007/api-pokedex/blob/main/assets/documentation/console_gcp.PNG?raw=true)
+
 ## Manual de usuario
 ###### Como ejecutar este programa
 Puede ejecutar el programa en ambiente local una vez descargado el codigo fuente en [api-pokedex.git](https://github.com/ergoproxy007/api-pokedex.git):
