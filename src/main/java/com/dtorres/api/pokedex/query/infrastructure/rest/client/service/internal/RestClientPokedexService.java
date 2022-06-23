@@ -46,7 +46,7 @@ public class RestClientPokedexService {
     private void setDescriptionAbility(List<PokemonAbilityResponse> abilities, String withAbility) {
         if (YES.equalsIgnoreCase(withAbility)) {
             abilities.parallelStream().forEach(value -> {
-                ResponseEntity<PokemonAbilityDetailsResponse> result = (ResponseEntity<PokemonAbilityDetailsResponse>) restTemplateOperations.getResponseEntity(value.getAbility().getUrl(), PokemonAbilityDetailsResponse.class);
+                ResponseEntity<PokemonAbilityDetailsResponse> result = (ResponseEntity<PokemonAbilityDetailsResponse>) restTemplateOperations.getResponseEntityByNameProperty(value.getAbility(), PokemonAbilityDetailsResponse.class);
                 if (result.getStatusCode() == HttpStatus.OK) {
                     PokemonAbilityDetailsResponse details = result.getBody();
 

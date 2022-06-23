@@ -1,6 +1,7 @@
 package com.dtorres.api.pokedex.query.infrastructure.rest.client.operations;
 
 import com.dtorres.api.pokedex.commons.domain.exception.TechnicalException;
+import com.dtorres.api.pokedex.query.infrastructure.rest.props.NameProperty;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -31,5 +32,9 @@ public class RestTemplateOperations {
             log.error("error trying to access resource, url={}, statusCode={}", url, e.getStatusCode(), e);
             throw new TechnicalException(e.getMessage());
         }
+    }
+
+    public ResponseEntity<?> getResponseEntityByNameProperty(NameProperty nameProperty, Class<?> classType) {
+        return getResponseEntity(nameProperty.getUrl(), classType);
     }
 }
