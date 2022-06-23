@@ -39,13 +39,13 @@ public class RestTemplateOperations {
 
     @Cacheable("pokemon")
     public ResponseEntity<PokemonResponse> getPokemonResponse(String url) {
-        log.info("access to pokemon url={}", url);
+        log.info("validate no cache & call service, access to Pokemon, url={}", url);
         return (ResponseEntity<PokemonResponse>) getResponseEntity(url, PokemonResponse.class);
     }
 
     @Cacheable("abilitydetails")
     public ResponseEntity<PokemonAbilityDetailsResponse> getPokemonAbilityDetailsResponse(String url) {
-        log.info("access to pokemon url={}", url);
+        log.info("validate no cache & call service, access to Pokemon Ability Details, url={}", url);
         return (ResponseEntity<PokemonAbilityDetailsResponse>) getResponseEntity(url, PokemonAbilityDetailsResponse.class);
     }
 }
